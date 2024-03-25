@@ -1,0 +1,64 @@
+﻿# curl -X 'GET' 
+#  'http://localhost:5151/api/Users' 
+#  -H 'accept: text/plain'
+GET http://localhost:5151/api/Users
+accept: text/plain
+
+###
+
+# curl -X 'POST' 
+#  'http://localhost:5151/api/Users' 
+#  -H 'accept: text/plain' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "id": 0,
+#  "guid": "string",
+#  "deleted": true,
+#  "emailConfirmed": true,
+#  "phoneNumberConfirmed": true,
+#  "twoFactorEnabled": true,
+#  "lockoutEnabled": true,
+#  "accessFailedCount": 0,
+#  "username": "string",
+#  "passwordReset": true,
+#  "passwordResetDate": "2024-03-20T04:03:57.096Z",
+#  "accountDisabled": true,
+#  "ts": "2024-03-20T04:03:57.096Z",
+#  "company": {
+#    "id": 0
+#  },
+#  "birthDate": "2024-03-20T04:03:57.096Z",
+#  "hireDate": "2024-03-20T04:03:57.096Z",
+#  "lockoutEndDateUtc": "2024-03-20T04:03:57.096Z",
+#  "resetTokenExpire": "2024-03-20T04:03:57.096Z",
+#  "badgeNumber": "string",
+#  "email": "string",
+#  "emailUpdate": "string",
+#  "employeeDepartment": "string",
+#  "employeeId": "string",
+#  "employeeRole": "string",
+#  "fcmTokens": "string",
+#  "firstName": "string",
+#  "internalEmployeeId": "string",
+#  "lastName": "string",
+#  "passwordHash": "string",
+#  "phoneNumber": "string",
+#  "pin": "string",
+#  "profileImg": "string",
+#  "resetToken": "string",
+#  "securityStamp": "string",
+#  "theme": "string",
+#  "workspace": {
+#    "id": 0
+#  }
+#}'
+POST http://localhost:5151/api/Users
+accept: text/plain
+Content-Type: application/json
+
+{
+  "username": "foo-6" 
+}
+
+###
+
