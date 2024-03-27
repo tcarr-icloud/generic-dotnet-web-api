@@ -1,69 +1,63 @@
-﻿
-namespace webapi
+﻿namespace webapi;
+
+public class UnitOfWork : IDisposable
 {
-    public class UnitOfWork : IDisposable
+    private readonly DatabaseApiContext _context;
+    private GenericRepository<Company> _companyRepository;
+
+    private bool _disposed;
+    private GenericRepository<User> _userRepository;
+    private GenericRepository<Workspace> _workspaceRepository;
+
+    public UnitOfWork(DatabaseApiContext context)
     {
-        private readonly DatabaseApiContext _context;
-        private GenericRepository<User> _userRepository;
-        private GenericRepository<Company> _companyRepository;
-        private GenericRepository<Workspace> _workspaceRepository;
+        _context = context;
+    }
 
-        public UnitOfWork(DatabaseApiContext context)
+    public GenericRepository<User> UserRepository
+    {
+        get
         {
-            this._context = context;
+            _userRepository ??= new GenericRepository<User>(_context);
+            return _userRepository;
         }
+    }
 
-        public GenericRepository<User> UserRepository
+    public GenericRepository<Company> CompanyRepository
+    {
+        get
         {
-            get
-            {
-                this._userRepository ??= new GenericRepository<User>(_context);
-                return _userRepository;
-            }
+            _companyRepository ??= new GenericRepository<Company>(_context);
+            return _companyRepository;
         }
+    }
 
-        public GenericRepository<Company> CompanyRepository
+    public GenericRepository<Workspace> WorkspaceRepository
+    {
+        get
         {
-            get
-            {
-                this._companyRepository ??= new GenericRepository<Company>(_context);
-                return _companyRepository;
-            }
+            _workspaceRepository ??= new GenericRepository<Workspace>(_context);
+            return _workspaceRepository;
         }
+    }
 
-        public GenericRepository<Workspace> WorkspaceRepository
-        {
-            get
-            {
-                this._workspaceRepository ??= new GenericRepository<Workspace>(_context);
-                return _workspaceRepository;
-            }
-        }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
 
-        private bool _disposed = false;
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+            if (disposing)
+                _context.Dispose();
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this._disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-
-            this._disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        _disposed = true;
     }
 }

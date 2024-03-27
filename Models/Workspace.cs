@@ -1,7 +1,6 @@
-﻿namespace webapi
+﻿namespace webapi;
+
+public class Workspace
 {
-    public class Workspace
-    {
-        public long Id { get; set; }
-    }
+    public long Id { get; set; }
 }
